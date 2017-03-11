@@ -1,0 +1,110 @@
+{%load staticfiles%}
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Almabase</title>
+		<link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+        <link href="{% static 'css/card.css' %}" rel="stylesheet">
+        <link href="{% static 'css/jquery-ui.css' %}" rel="stylesheet">
+		</script>
+	</head>
+	<body>
+		<div class="container-fluid">
+			<div class="row jumbotron">
+				<div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 ">
+					<img src="{% static 'images/almabase.png' %}" class="img-responsive" style="vertical-align: middle" alt="Image">		
+				</div>
+				<div class="col-xs-12 col-sm-12 col-md-7 col-lg-7 ">
+					<h1 class="text-center" style="color:#2196F3;">GAMES LISTING</h1>
+				</div>
+				<div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 ">
+				<h4>
+					<span>{{request.user.username}}</span>&nbsp;&nbsp;&nbsp;&nbsp;
+					<a href="/signout/"><button value="Signout" class="btn btn-info " />Signout</a>
+				</h4>
+				</div>
+			</div>
+			<div class="row" style="background-color: #ECECEA;padding:50px;">
+				<form class="form-wrapper cf" method="post" action="/search/">
+				{% csrf_token %}
+				<div class="col-xs-0 col-sm-0 col-md-3 col-lg-3">
+					
+				</div>
+				<div class="col-xs-8 col-sm-8 col-md-4 col-lg-4">
+					<input name="search_key" id="search" type="text" placeholder="Search here..." required>
+				</div>
+				<div class="col-xs-4 col-sm-4 col-md-1 col-lg-1">
+					  <button type="submit">Search</button>
+				</div>
+				<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+					<div class="dropdown">
+					  <button class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					    Filters
+					  </button>
+					  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+					    <li><a class="dropdown-item" href="/sort_asc/1">Score Asc</a></li>
+					    <li><a class="dropdown-item" href="/sort_desc/1">Score Desc</a></li>
+					    <li><a class="dropdown-item" href="/platform/1">Sort by Platform</a></li>
+					  </div>
+					</div>
+				</div>
+				</form>
+			</div>
+			<div class="row" style="padding:0 110px;">
+
+				{% for game in games %}
+
+				<div class="col-xs-12 col-sm-12 col-md-4">
+		       		<div class="card" >
+		                <div class="card-content" >
+		                   	<div class="card-header-grey" style="height: 100px;">
+		                       <h1 class="card-heading">{{game.title}}<span style="font-size:12px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{game.platform}}</span></h1>
+		                    </div>
+	                      	<div class="card-body">
+	                    	  <p class="card-p">
+	                               <img src="{% static 'images/game_default.png' %}" class="img-responsive" alt="Image">
+	                           </p>
+	                    	</div>
+	                    	<hr>
+	                    	<div class="row">
+								<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+									<p >&nbsp;&nbsp;&nbsp;Genre : {{game.genre}}</p>
+								</div>
+								<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+									<p class="text-center">{{game.score}}</p>
+								</div>
+								<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+									<p class="text-center">{{game.editors_choice}}</p>
+								</div>              		
+	                    	</div>
+		                </div>
+		            </div>
+		        </div>	
+		        {% endfor %}
+			</div>
+			<div class="row text-center">
+				<ul class="pagination">
+					<li><a href="/{{url}}/1">1</a></li>
+					<li><a href="/{{url}}/2">2</a></li>
+					<li><a href="/{{url}}/3">3</a></li>
+					<li><a href="/{{url}}/4">4</a></li>
+					<li><a href="/{{url}}/5">5</a></li>
+					<li><a href="/{{url}}/6">6</a></li>
+					<li><a href="/{{url}}/7">7</a></li>
+					<li><a href="/{{url}}/8">8</a></li>
+					<li><a href="/{{url}}/9">9</a></li>
+					<li><a href="/{{url}}/10">10</a></li>
+					<li><a href="/{{url}}/11">11</a></li>
+				</ul>
+			</div>
+		</div>
+		<script src="{% static 'js/jquery.min.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/login.js' %}"></script>
+        <script src="{% static 'js/bootstrap.min.js' %}"></script>
+        <script src="{% static 'js/jquery-ui.min.js' %}"></script>
+
+	</body>
+</html>
